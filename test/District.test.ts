@@ -1,4 +1,4 @@
-import { District } from '../src/District'
+import { District } from '../src'
 import { assert } from 'chai'
 
 describe(District.name, function () {

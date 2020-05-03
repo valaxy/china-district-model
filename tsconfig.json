@@ -3,7 +3,6 @@
         "target": "ESNext",
         "module": "CommonJS",
         "moduleResolution": "node",
-        "strict": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "allowSyntheticDefaultImports": true,
@@ -13,6 +12,7 @@
         "outDir": "dist"
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "test/**/*.ts"
     ]
 }
