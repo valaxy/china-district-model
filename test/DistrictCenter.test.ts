@@ -4,6 +4,29 @@ import { assert } from 'chai'
 describe(DistrictCenter.name, function () {
     let center = new DistrictCenter()
 
+    it('重庆市', function () {
+        let p = center.getByAdcode('500000')
+        assert.equal(p.name, '重庆市')
+
+        let c = center.getByAdcode('500100')
+        assert.equal(c.name, '市辖区')
+        assert.equal(c.parent.name, '重庆市')
+
+        let co = center.getByAdcode('500105')
+        assert.equal(co.name, '江北区')
+        assert.equal(co.parent.name, '市辖区')
+        assert.equal(co.parent.parent.name, '重庆市')
+    })
+
+    it('District._findDescendantsByName()', function () {
+        let d = center.getByAdcode('500000')
+        let ds = d['_findDescendantsByName']('市辖区')
+        assert.equal(ds.length, 1)
+
+        assert.equal(d['_findDescendantsByName']('北碚区').length, 1)
+        assert.equal(d['_findDescendantsByName']('石柱土家族自治县').length, 1)
+    })
+
     it('case', function () {
         let china = 0
         let provinceCount = 0

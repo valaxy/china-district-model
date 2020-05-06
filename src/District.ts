@@ -43,9 +43,27 @@ export class District {
         return !!this.children.find(child => child.name == name)
     }
 
+    /** 找到一个有效的子节点 */
     findOneChildByName(name: string): District {
         let districts = this.children.filter(child => child.name == name)
-        assert.equal(districts.length, 1, `name=${name} exist multiply District`)
+        assert.equal(districts.length, 1, `findOneChildByName: name=${name} exist ${districts.length} District, bu should only exist 1 District`)
         return districts[0]
+    }
+
+    /** 找到一个有效的后代节点 */
+    findOneDescendantByName(name: string): District {
+        let districts = this._findDescendantsByName(name)
+        assert.equal(districts.length, 1, `findOneDescendantByName: name=${name} exist ${districts.length} District, bu should only exist 1 District`)
+        return districts[0]
+    }
+
+    /** 找到所有有效的后代节点 */
+    private _findDescendantsByName(name: string): District[] {
+        let ds = this.children.filter(child => child.name == name)
+        this.children.forEach(child => {
+            let a = child._findDescendantsByName(name)
+            ds.push(...a)
+        })
+        return ds
     }
 }
